@@ -1,15 +1,68 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2 class="m-5" style="text-align: center;">詳細</h2>
-<div class="card w-50 mb-3" style="margin: auto;">
-    <div class="card-body">
-        <h2 class="card-title">{{ post.title }} <span class="ml-3"
-                style="font-size: 0.5em;">期限：{{ post.due.date() }}</span></h2>
-        <p>{{ post.detail }}</p>
-        <div class="pt-2">
-            <a class="btn btn-outline-success" href="/" role="button">Return</a>
-            <a class="btn btn-success" href="/update/{{ post.id }}" role="button">Update</a>
+<div class="base-color">
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-lg-9 col-md-12 col-xs-12">
+                <div class="card mb-3 " >
+                    <div class="card-body">
+                        <div>
+                            <h2 class="card-title">{{ post.title }} <span class="ml-3" style="font-size: 0.5em;">Posted date:{{
+                                post.due.date() }}</span></h2>
+                        </div>
+                        <div class ="mx-auto" style="width:70%; ">
+                            <img src="/static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="mt-3" style="background-color: rgb(193, 220, 193)">
+                            <h3>Description</h3>
+                            <p>DescriptionDescriptionDescriptionDescriptionDescription</p>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-lg-6 col-md-12 col-xs-12">
+                                <div style="background-color: rgb(243, 234, 226)">
+                                    <p>sdflkj</p>
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th>部屋タイプ</th>
+                                                <td>ワンルーム</td>
+                                            </tr>
+                                            <tr>
+                                                <th>部屋タイプ</th>
+                                                <td>ワンルーム</td>
+                                            </tr>
+                                            <tr>
+                                                <th>部屋タイプ</th>
+                                                <td>ワンルーム</td>
+                                            </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-xs-12">
+                                <div style="background-color: rgb(244, 209, 237)">
+                                    <p>sdflkj</p>
+                                    <div>
+                                        <div class="map" style="width:100%">
+                                            <!-- Google Mapの共有タグを埋め込む -->
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030384825!2d139.76493075169924!3d35.68123618009717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1618711259693!5m2!1sja!2sjp" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>{{ post.detail }}</p>
+                        <div class="pt-2">
+                            <a class="btn btn-outline-success" href="/" role="button">Return</a>
+                            <a class="btn btn-success" href="/update/{{ post.id }}" role="button">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-lg-3 col-md-12" style="background-color: pink">
+                    <p>sdf</p>
+                </div>
         </div>
     </div>
 </div>

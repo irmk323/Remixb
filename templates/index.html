@@ -1,24 +1,72 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container">
-    <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
-    {% for post in posts %}
-    <div class="card w-50 mb-3" style="margin: auto;">
-        <div class="card-body">
-            {% if post.due.date() < today %}
-            <div class="alert alert-warning" role="alert">
-                期限切れです！
+<div class="base-color pt-5">
+    <div class="container">
+        <div class="room-list-section row">
+            <div class="col-lg-3 col-md-12" style="background-color: pink">
+                <p>Search</p>
+            </div>            
+            <div class="col-lg-9 col-md-12 col-xs-12">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                      <div class="card">
+                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
-            {% endif %}
-            <h2 class="card-title">{{ post.title }}</h2>
-            <p>期限：{{ post.due.date() }}</p>
-            <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
-            <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
-            <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
         </div>
+        <div class="todo-app">
+            <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
+            {% for post in posts %}
+            <div class="card w-50 mb-3" style="margin: auto;">
+                <div class="card-body">
+                    {% if post.due.date() < today %} <div class="alert alert-warning" role="alert">
+                        期限切れです！
+                </div>
+                {% endif %}
+                <h2 class="card-title">{{ post.title }}</h2>
+                <p>期限：{{ post.due.date() }}</p>
+                <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
+                <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
+                <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+</div>
 </div>
 
 {% endblock %}
