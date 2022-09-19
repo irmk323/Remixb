@@ -2,68 +2,117 @@
 
 {% block body %}
 <div class="base-color">
-    <div class="container">
-        <div class="row pt-5">
-            <div class="col-lg-9 col-md-12 col-xs-12">
-                <div class="card mb-3 " >
-                    <div class="card-body">
-                        <div>
-                            <h2 class="card-title">{{ post.title }} <span class="ml-3" style="font-size: 0.5em;">Posted date:{{
-                                post.due.date() }}</span></h2>
-                        </div>
-                        <div class ="mx-auto" style="width:70%; ">
-                            <img src="/static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-                        </div>
-                        <div class="mt-3" style="background-color: rgb(193, 220, 193)">
-                            <h3>Description</h3>
-                            <p>DescriptionDescriptionDescriptionDescriptionDescription</p>
-                        </div>
-                        <div class="row pt-2">
-                            <div class="col-lg-6 col-md-12 col-xs-12">
-                                <div style="background-color: rgb(243, 234, 226)">
-                                    <p>sdflkj</p>
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <th>部屋タイプ</th>
-                                                <td>ワンルーム</td>
-                                            </tr>
-                                            <tr>
-                                                <th>部屋タイプ</th>
-                                                <td>ワンルーム</td>
-                                            </tr>
-                                            <tr>
-                                                <th>部屋タイプ</th>
-                                                <td>ワンルーム</td>
-                                            </tr>
-                                        </tbody>
-                                      </table>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-xs-12">
-                                <div style="background-color: rgb(244, 209, 237)">
-                                    <p>sdflkj</p>
-                                    <div>
-                                        <div class="map" style="width:100%">
-                                            <!-- Google Mapの共有タグを埋め込む -->
-                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030384825!2d139.76493075169924!3d35.68123618009717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1618711259693!5m2!1sja!2sjp" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>{{ post.detail }}</p>
-                        <div class="pt-2">
-                            <a class="btn btn-outline-success" href="/" role="button">Return</a>
-                            <a class="btn btn-success" href="/update/{{ post.id }}" role="button">Update</a>
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row pt-5">
+      <div class="col-lg-10 col-md-12 col-xs-12">
+        <div class="card mb-3 ">
+          <div class="card-body p-5">
+            <div class="d-flex">
+              <div class="fs-2 fw-bold  p-2  card-title">{{ post.title }}</div>
+              <div class="p-2  ms-auto aligin-middle">投稿日:{{ post.due.date() }}</div>
             </div>
-                <div class="col-lg-3 col-md-12" style="background-color: pink">
-                    <p>sdf</p>
+            <div class="mx-auto" style="width:70%; ">
+              <img src="/static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+            </div>
+            <div class="mt-3"> 
+              <p>{{ post.detail }}</p>
+              ■エリア紹介
+              都心に近く、Primrose Hill, Regent\'s Park, Hampstead Heathにも徒歩圏内
+              治安が良いので日本人の駐在員の方々にも人気の住宅地
+              
+              買物も大変便利です。
+              あたりやレストラン、日本食材店、韓国食材店,Waitrose, Sainsbury, O2 shopping Centre。このO2 内には映画館もあります。Swiss Cottage駅の横には図書館やプール付きの市営ジムもあります。
+              ヤングに人気のCamden Townも徒歩圏内、バス31番は頻繁に走っております。
+              <br>
+              ■最寄り駅; Swiss Cottage, South Hampstead, Finchly Road,
+              ■バス; 31, 113, 82,13, C11
+              ■レント／デポジット
+              Rent; £760 pcm ( £175.38 pw x 52 weeks/ 12 Months)
+              Deposit; £760
+              <br>
+              光熱費：Council Tax なども含めて全込み。Broadband 使用料込、
+              週一回大家さんが共有エリアを掃除致します。
+              ■賃貸期間
+              6 months以上の方を大家さんはご希望ですが、１ヶ月の短期も大歓迎です。
+              3ヶ月未満の短期賃貸では £800 pcmとなります。
+            </div>
+            <div class="row pt-5">
+              <div class="col-lg-6 col-md-12 col-xs-12">
+                <div style="">
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <th>部屋タイプ</th>
+                        <td>シェアフラット</td>
+                      </tr>
+                      <tr>
+                        <th>家賃・価格</th>
+                        <td>£750</td>
+                      </tr>
+                      <tr>
+                        <th>光熱費</th>
+                        <td>含まない</td>
+                      </tr>
+                      <tr>
+                        <th>デポジット</th>
+                        <td>£750</td>
+                      </tr>
+                      <tr>
+                        <th>家具</th>
+                        <td>込み</td>
+                      </tr>
+                      <tr>
+                        <th>性別</th>
+                        <td>女性希望</td>
+                      </tr>
+                      <tr>
+                        <th>電話番号</th>
+                        <td>000xxxxaaaa</td>
+                      </tr>
+                      <tr>
+                        <th>メールアドレス</th>
+                        <td>sss@fff.com</td>
+                      </tr>
+                      <tr>
+                        <th>エリア</th>
+                        <td>Ealing</td>
+                      </tr>
+                      <tr>
+                        <th>最寄り駅</th>
+                        <td>Ealing Station</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+              </div>
+              <div class="col-lg-6 col-md-12 col-xs-12">
+                <div >
+                  <div>
+                    <div class="map" style="width:100%">
+                      <!-- Google Mapの共有タグを埋め込む -->
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030384825!2d139.76493075169924!3d35.68123618009717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1618711259693!5m2!1sja!2sjp"
+                        style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-3" style="">
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn base-button btn-lg" type="button">問い合わせる</button>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-2">
+                <a class="btn btn-outline-success" href="/" role="button">Return</a>
+                <a class="btn btn-success" href="/update/{{ post.id }}" role="button">Update</a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-lg-2 col-md-12" style="background-color:#e4f0f1">
+        <p>TBD</p>
+      </div>
     </div>
-</div>
-{% endblock %}
+  </div>
+  {% endblock %}

@@ -1,72 +1,217 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="base-color pt-5">
-    <div class="container">
-        <div class="room-list-section row">
-            <div class="col-lg-3 col-md-12" style="background-color: pink">
-                <p>Search</p>
-            </div>            
-            <div class="col-lg-9 col-md-12 col-xs-12">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
-                      <div class="card">
-                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card">
-                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card">
-                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card">
-                        <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            </div>
+<div class="base-color">
+  <div class="container">
+    <div class="room-list-section row">
+      <div>
+        <div class="row justify-content-end m-3">
+          <select class="form-select " aria-label="Default select example" style="width:150px;">
+            <option selected>Sort by</option>
+            <option value="1">Low Price</option>
+            <option value="2">New Date</option>
+          </select>
         </div>
-        <div class="todo-app">
-            <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
-            {% for post in posts %}
-            <div class="card w-50 mb-3" style="margin: auto;">
-                <div class="card-body">
-                    {% if post.due.date() < today %} <div class="alert alert-warning" role="alert">
-                        期限切れです！
-                </div>
-                {% endif %}
-                <h2 class="card-title">{{ post.title }}</h2>
-                <p>期限：{{ post.due.date() }}</p>
-                <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
-                <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
-                <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
-            </div>
+      </div>
+      <div class="col-lg-2 col-md-12 p-3" style="background-color: #e4f0f1">
+        <div>
+          <b>検索条件絞り込み</b>
         </div>
-        {% endfor %}
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold">家賃(£)</div>
+          <div class="input-group input-group-sm mb-2">
+            <input type="text" placeholder="min" class="form-control mr-2" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm">
+            <span class="inline-block m-2">~</span>
+            <input type="text" placeholder="max" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              光熱費込み
+            </label>
+          </div>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold">入居可能日</div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+            <label class="form-check-label" for="flexRadioDefault1">
+              即入居可能
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+            <input type="date" name="due" required>
+          </div>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold">部屋タイプ</div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+            <label class="form-check-label" for="flexCheckDefault">
+              フラットルーム
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+            <label class="form-check-label" for="flexCheckChecked">
+              スタジオタイプ
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+            <label class="form-check-label" for="flexCheckChecked">
+              賃貸物件
+            </label>
+          </div>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold ">滞在期間</div>
+          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option selected value="1">指定なし</option>
+            <option value="2">1ヶ月以内</option>
+            <option value="3">3ヶ月以内</option>
+            <option value="3">6ヶ月以内</option>
+            <option value="3">1年以内</option>
+            <option value="3">2年以内</option>
+            <option value="3">それ以上</option>
+          </select>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold ">家具</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">あり</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">なし</label>
+          </div>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold ">性別</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">指定なし</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">女性希望</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">男性希望</label>
+          </div>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold ">喫煙</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">指定なし</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option2">
+            <label class="form-check-label" for="inlineRadio1">可能</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option3">
+            <label class="form-check-label" for="inlineRadio2">不可</label>
+          </div>
+        </div>
+        <div class="my-3 mx-2">
+          <div class="mb-2 fw-bold ">大家</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">指定なし</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">別居</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+            <label class="form-check-label" for="inlineRadio2">同居</label>
+          </div>
+        </div>
+        <div class="mx-auto">
+          <a class="btn base-button d-block" href="/create" role="button">検索</a>
+        </div>
+      </div>
+      <div class="col-lg-10 col-md-12 col-xs-12">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-nail">£750/月</div>
+              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <a href="/detail/2">Swiss Cottage, S Hampstead ❤️モダンで超綺麗な部屋、駅近く</a>
+                <p class="card-text">❤️ご入居から退去までのサポートを提供しております。
+                  ❤️❤️　女性向き物件です。
+                  202３年、５月３日から空きます。見学者激減のため、レント大幅値下げ致しました。
+                  大家さんの強い要望で女性の方のみ賃貸希望です。
+                  </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-nail">£800/月</div>
+              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">TWICKENHAM　落ち着いた環境のガーデンフラット</h5>
+                <p class="card-text">最寄駅は　ＷＨＩＴＴＯＮ　駅です　
+                  豊かな白人の多い、安全な地域
+                  静かで、自然の多い落ち着いた勉強にふさわしい地域
+                  ＬＡＬで英語の勉強、最も有名なリッチモンドカレッジでいろんな趣味のコースが...
+                  </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-nail">£900/月</div>
+              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                  content.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                  content. This content is a little bit longer.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="todo-app">
+        <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
+        {% for post in posts %}
+        <div class="card w-50 mb-3" style="margin: auto;">
+          <div class="card-body">
+            {% if post.due.date() < today %} <div class="alert alert-warning" role="alert">
+              期限切れです！
+          </div>
+          {% endif %}
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p>期限：{{ post.due.date() }}</p>
+          <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
+          <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
+          <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-</div>
+  </div>
 </div>
 
 {% endblock %}
