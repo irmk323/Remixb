@@ -51,6 +51,8 @@ coverage.xml
 # Flask stuff:
 instance/
 .webassets-cache
+migrations/
+*.db
 
 # pyenv
 .python-version

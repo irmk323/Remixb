@@ -2,10 +2,12 @@
 from datetime import datetime ,date
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO']=True
 db = SQLAlchemy(app)
 
 
@@ -13,8 +15,14 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
     detail = db.Column(db.String(100))
-    due = db.Column(db.DateTime, nullable=False)
+    name = db.Column(db.String(30), nullable=True)
 
+# class room_detail(db.Model):
+#     __tablename__ = 'room_detail'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.Text)
+#     price = db.Column(db.Integer)
+Migrate(app, db)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
