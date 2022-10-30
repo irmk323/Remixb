@@ -7,17 +7,24 @@ def load_user(user_id):
    return User.query.get(user_id)
 
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), nullable=False)
-    detail = db.Column(db.String(100))
-    name = db.Column(db.String(30), nullable=True)
-
-# class room_detail(db.Model):
-#     __tablename__ = 'room_detail'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.Text)
-#     price = db.Column(db.Integer)
-
+   id = db.Column(db.Integer, primary_key=True)
+   title = db.Column(db.String(30), nullable=False)
+   detail = db.Column(db.String(100))
+   name = db.Column(db.String(30), nullable=True)
+   monthly_rent = db.Column(db.Integer)
+   is_bill_included = db.Column(db.Boolean)
+   deposit = db.Column(db.Integer)
+   start_date =  db.Column(db.DateTime)
+   room_type = db.Column(db.String(30))
+   duration = db.Column(db.String(100))
+   is_furnished = db.Column(db.Boolean)
+   gender = db.Column(db.String(30))
+   is_smorkable = db.Column(db.Boolean)
+   with_landload = db.Column(db.Boolean)
+   postcode = db.Column(db.String(30))
+   area = db.Column(db.String(30))
+   closest_station = db.Column(db.String(30))
+   picture_path = db.Column(db.String(100))
 
 class User(db.Model, UserMixin):
 

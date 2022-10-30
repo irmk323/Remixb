@@ -11,10 +11,10 @@ from datetime import datetime ,date
 bp = Blueprint('app', __name__,  url_prefix='')
 
 @bp.route('/')
-@login_required
+# @login_required
 def top():
-   users = User.query.all()
-   return render_template('talk.html', users=users)
+#    users = User.query.all()
+   return render_template('index.html')
    
 
 @bp.route('/login', methods=['GET', 'POST'])
