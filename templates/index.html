@@ -141,75 +141,21 @@
       </div>
       <div class="col-lg-10 col-md-12 col-xs-12">
         <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for post in posts %}
           <div class="col">
             <div class="card h-100">
-              <div class="card-nail">£750/月</div>
+              <div class="card-nail">£{{post.monthly_rent}}/月</div>
               <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
               <div class="card-body">
-                <a href="/detail/2">Swiss Cottage, S Hampstead ❤️モダンで超綺麗な部屋、駅近く</a>
-                <p class="card-text">❤️ご入居から退去までのサポートを提供しております。
-                  ❤️❤️　女性向き物件です。
-                  202３年、５月３日から空きます。見学者激減のため、レント大幅値下げ致しました。
-                  大家さんの強い要望で女性の方のみ賃貸希望です。
-                  </p>
+                <a href="/detail/{{ post.id }}">{{post.title}}</a>
+                <p class="card-text">{{post.detail}}</p>
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-nail">£800/月</div>
-              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">TWICKENHAM　落ち着いた環境のガーデンフラット</h5>
-                <p class="card-text">最寄駅は　ＷＨＩＴＴＯＮ　駅です　
-                  豊かな白人の多い、安全な地域
-                  静かで、自然の多い落ち着いた勉強にふさわしい地域
-                  ＬＡＬで英語の勉強、最も有名なリッチモンドカレッジでいろんな趣味のコースが...
-                  </p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-nail">£900/月</div>
-              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
       </div>
-      <div class="todo-app">
-        <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
-        {% for post in posts %}
-        <div class="card w-50 mb-3" style="margin: auto;">
-          <div class="card-body">
-            {% if post.due.date() < today %} <div class="alert alert-warning" role="alert">
-              期限切れです！
-          </div>
-          {% endif %}
-          <h2 class="card-title">{{ post.title }}</h2>
-          <p>期限：{{ post.due.date() }}</p>
-          <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
-          <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
-          <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
-        </div>
-      </div>
-      {% endfor %}
     </div>
   </div>
 </div>
