@@ -25,6 +25,7 @@ class Post(db.Model):
    area = db.Column(db.String(30))
    closest_station = db.Column(db.String(30))
    picture_path = db.Column(db.String(100))
+   created_at = db.Column(db.DateTime)
 
 class User(db.Model, UserMixin):
 
