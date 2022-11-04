@@ -6,12 +6,34 @@
     <div class="room-list-section row">
       <div>
         <div class="row justify-content-end m-3">
-          <select class="form-select " aria-label="Default select example" style="width:150px;">
-            <option selected>Sort by</option>
-            <option value="1">Low Price</option>
-            <option value="2">New Date</option>
+          <select name="sort_by" id="sort_by" class="form-select " aria-label="Default select example" style="width:150px;">
+            <option value="" >Default</option>
+            <option value="low_price">Low Price</option>
+            <option value="new_date">New Date</option>
           </select>
         </div>
+        <script type="text/javascript">
+          var sort_by = document.getElementById('sort_by');
+          sort_by.onchange = function() {
+          var sort_by_paramater = this.options[this.selectedIndex].value;
+          document.location.href = '/?sort_by='+sort_by_paramater;
+          };
+
+          window.onload=function(){
+            let params = (new URL(document.location)).searchParams;
+            let name = params.get('sort_by');
+            var sort_by_elems = document.getElementById('sort_by');
+            checkSelect(sort_by_elems,name);
+          }
+          function checkSelect(obj,val){
+              for(var i=0;i<obj.length;i++){
+                if(obj[i].value==val){
+                obj[i].selected=true;
+                break;
+                }
+              }
+            }
+        </script>
       </div>
       <div class="col-lg-2 col-md-12 p-3" style="background-color: #e4f0f1">
         <div>
@@ -147,6 +169,9 @@
               <div class="card-nail">£{{post.monthly_rent}}/月</div>
               <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
               <div class="card-body">
+                <div class="justify-content-end">
+                  <span class="post-created d-flex justify-content-end">投稿日：{{ post.created_at.strftime('%b %d, %Y') }}</span>
+                </div>
                 <a href="/detail/{{ post.id }}">{{post.title}}</a>
                 <p class="card-text">{{post.detail}}</p>
               </div>

@@ -3,18 +3,18 @@ from flask import (Blueprint, render_template, redirect,
 from flask_login import current_user, login_user, logout_user, login_required
 from forms import LoginForm, MessageForm, RegisterForm
 from app import db
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, desc
 from models import User, Post, Message
 from flask import Flask, render_template, request, redirect
 from datetime import datetime ,date
 
 bp = Blueprint('app', __name__,  url_prefix='')
 
-@bp.route('/')
-# @login_required
-def top():
-#    users = User.query.all()
-   return render_template('index.html')
+# @bp.route('/')
+# # @login_required
+# def top():
+# #    users = User.query.all()
+#    return render_template('index.html')
    
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -56,11 +56,17 @@ def register():
    return render_template('register.html', form=form)
 
 
-@bp.route('/top2', methods=['GET', 'POST'])
+@bp.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        posts = Post.query.all()
-        return render_template('index.html', posts=posts, today=date.today())
+        sort_by = request.args.get("sort_by")
+        if sort_by== "low_price":
+            posts = Post.query.order_by('monthly_rent').all()
+        elif sort_by== "new_date":
+            posts = Post.query.order_by(desc('created_at')).all()
+        else:
+            posts = Post.query.all()
+        return render_template('index.html', posts=posts)
 
     else:
         title = request.form.get('title')

@@ -38,3 +38,8 @@ body {
     width: 100%;
     height: 100%;
   }
+
+  .post-created{
+    color: gray;
+    font-size: 10px;
+  }
