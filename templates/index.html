@@ -6,17 +6,20 @@
     <div class="room-list-section row">
       <div>
         <div class="row justify-content-end m-3">
-          <select name="sort_by" id="sort_by" class="form-select " aria-label="Default select example" style="width:150px;">
+          <select name="sort_by" id="sort_by" class="form-select" style="width:150px;">
             <option value="" >Default</option>
-            <option value="low_price">Low Price</option>
-            <option value="new_date">New Date</option>
+            <option value="monthly_rent">Low Price</option>
+            <option value="created_at">New Date</option>
           </select>
         </div>
+        
         <script type="text/javascript">
           var sort_by = document.getElementById('sort_by');
           sort_by.onchange = function() {
           var sort_by_paramater = this.options[this.selectedIndex].value;
-          document.location.href = '/?sort_by='+sort_by_paramater;
+          // document.location.href = '/?sort_by='+sort_by_paramater;
+          document.getElementById('dropdown_value').value = sort_by.value;
+          document.getElementById('search_form').submit();
           };
 
           window.onload=function(){
@@ -42,11 +45,15 @@
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold">家賃(£)</div>
           <div class="input-group input-group-sm mb-2">
-            <input type="text" placeholder="min" class="form-control mr-2" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm">
+            <form action="/" method="POST" enctype="multipart/form-data" id="search_form">
+            <input type="hidden" name="dropdown_value" id="dropdown_value" value="" >
+            {% if dict.min_rent != "" %}
+            <input type="text" placeholder="min" name="min_rent"  value="{{dict.min_rent}}" class="form-control mr-2" >
+            {% else %}
+            <input type="text" placeholder="min" name="min_rent" class="form-control mr-2" >
+            {% endif %}
             <span class="inline-block m-2">~</span>
-            <input type="text" placeholder="max" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm">
+            <input type="text" placeholder="max" class="form-control" >
           </div>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -158,8 +165,9 @@
           </div>
         </div>
         <div class="mx-auto">
-          <a class="btn base-button d-block" href="/create" role="button">検索</a>
+          <input type="submit" class="btn base-button d-block w-100"  value="検索">
         </div>
+      </form>
       </div>
       <div class="col-lg-10 col-md-12 col-xs-12">
         <div class="row row-cols-1 row-cols-md-3 g-4">
