@@ -9,12 +9,6 @@ from flask import Flask, render_template, request, redirect
 from datetime import datetime ,date
 
 bp = Blueprint('app', __name__,  url_prefix='')
-
-# @bp.route('/')
-# # @login_required
-# def top():
-# #    users = User.query.all()
-#    return render_template('index.html')
    
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -55,30 +49,54 @@ def register():
        return redirect(url_for('app.login'))
    return render_template('register.html', form=form)
 
+@bp.route('/', methods=['GET'])
+def get():
+    # sort_by = request.args.get("sort_by")
+    # if sort_by== "low_price":
+    #     posts = Post.query.order_by('monthly_rent').all()
+    # elif sort_by== "new_date":
+    #     posts = Post.query.order_by(desc('created_at')).all()
+    # else:
+    dict= ""
+    posts = Post.query.all()
+    return render_template('index.html', posts=posts, dict=dict)
 
-@bp.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'GET':
-        sort_by = request.args.get("sort_by")
-        if sort_by== "low_price":
-            posts = Post.query.order_by('monthly_rent').all()
-        elif sort_by== "new_date":
-            posts = Post.query.order_by(desc('created_at')).all()
-        else:
-            posts = Post.query.all()
-        return render_template('index.html', posts=posts)
-
+@bp.route('/', methods=['POST'])
+def post():
+    dropdown_value = request.form.get('dropdown_value')
+    min_rent = int(request.form.get('min_rent'))
+    # min_rent_int = int(min_rent)
+    # //todo 
+    if dropdown_value:
+        if dropdown_value == 'created_at':
+            posts = Post.query.filter(Post.monthly_rent > min_rent).order_by(desc(dropdown_value))
+        elif dropdown_value == 'monthly_rent':
+            posts = Post.query.filter(Post.monthly_rent > min_rent).order_by(dropdown_value)
     else:
-        title = request.form.get('title')
-        detail = request.form.get('detail')
-        due = request.form.get('due')
-        
-        due = datetime.strptime(due, '%Y-%m-%d')
-        new_post = Post(title=title, detail=detail, due=due)
+        posts = Post.query.filter(Post.monthly_rent > min_rent)
+    dict = request.form
+    for key in dict:
+        # print (" key" +key)
+        print ("form key " + key + " " +dict[key] )
+    # print(posts)
+    # postArr = []
+    # for post in posts:
+    #     postArr.append(post.toDict()) 
+    
+    # session['posts'] = jsonify(postArr)
+    # print(session['posts'])
+    
+    # title = request.form.get('title')
+    # detail = request.form.get('detail')
+    # due = request.form.get('due')
+    
+    # due = datetime.strptime(due, '%Y-%m-%d')
+    # new_post = Post(title=title, detail=detail, due=due)
 
-        db.session.add(new_post)
-        db.session.commit()
-        return redirect('/')
+    # db.session.add(new_post)
+    # db.session.commit()
+    # return redirect('/')
+    return render_template('index.html', posts=posts, dict=dict)
 
 @bp.route('/create')
 def create():

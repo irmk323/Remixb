@@ -1,3 +1,4 @@
+import inspect
 from app import db, login_manager
 from flask_login import UserMixin
 
@@ -26,6 +27,11 @@ class Post(db.Model):
    closest_station = db.Column(db.String(30))
    picture_path = db.Column(db.String(100))
    created_at = db.Column(db.DateTime)
+   def toDict(self):
+      return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }
+
+
+
 
 class User(db.Model, UserMixin):
 
