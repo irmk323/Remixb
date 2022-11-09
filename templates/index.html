@@ -53,44 +53,77 @@
             <input type="text" placeholder="min" name="min_rent" class="form-control mr-2" >
             {% endif %}
             <span class="inline-block m-2">~</span>
-            <input type="text" placeholder="max" class="form-control" >
+            {% if dict.max_rent != "" %}
+            <input type="text" placeholder="min" name="max_rent"  value="{{dict.max_rent}}" class="form-control mr-2" >
+            {% else %}
+            <input type="text" placeholder="max" name="max_rent" class="form-control" >
+            {% endif %}
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            {% if dict.is_bill_included == 'true' %}
+            <input class="form-check-input" type="checkbox" value="true" id="is_bill_included" name="is_bill_included" checked>
+            {% else %}
+            <input class="form-check-input" type="checkbox" value="true" id="is_bill_included" name="is_bill_included" >
+            {% endif %}
+            <label class="form-check-label" >
               光熱費込み
             </label>
           </div>
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold">入居可能日</div>
+          {% if dict == '' or dict.start_date == 'current_date' %}
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-            <label class="form-check-label" for="flexRadioDefault1">
+            <input class="form-check-input" type="radio" name="start_date" id="start_date" value="current_date" checked>
+            <label class="form-check-label" >
               即入居可能
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-            <input type="date" name="due" required>
+            <input class="form-check-input" type="radio" name="start_date" id="start_date" value="specified_date">
+            <input type="date" name="specified_date" >
           </div>
+          {% elif  dict.start_date == 'specified_date' %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="start_date" id="start_date" value="current_date" >
+            <label class="form-check-label" >
+              即入居可能
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="start_date" id="start_date" value="specified_date" checked>
+            <input type="date" name="specified_date" value="{{ dict.specified_date }}" >
+          </div>
+          {% endif %}
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold">部屋タイプ</div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-            <label class="form-check-label" for="flexCheckDefault">
+            {% if dict == '' or 'flat' in room_type  %}
+            <input class="form-check-input" type="checkbox" value="flat" name="room_type" id="room_type" checked>
+            {% elif dict.room_type != 'flat' %}
+            <input class="form-check-input" type="checkbox" value="flat" name="room_type" id="room_type" >
+            {% endif %}
+            <label class="form-check-label">
               フラットルーム
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
-            <label class="form-check-label" for="flexCheckChecked">
+            {% if 'studio' in room_type  %}
+            <input class="form-check-input" type="checkbox" value="studio" name="room_type" id="room_type" checked>
+            {% else %}
+            <input class="form-check-input" type="checkbox" value="studio" name="room_type" id="room_type"  >
+            {% endif %}
+            <label class="form-check-label">
               スタジオタイプ
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+            {% if 'rent' in room_type  %}
+            <input class="form-check-input" type="checkbox" value="rent" name="room_type" id="room_type" checked>
+            {% else %}
+            <input class="form-check-input" type="checkbox" value="rent" name="room_type" id="room_type"  >
+            {% endif %}
             <label class="form-check-label" for="flexCheckChecked">
               賃貸物件
             </label>
