@@ -51,33 +51,61 @@ def register():
 
 @bp.route('/', methods=['GET'])
 def get():
-    # sort_by = request.args.get("sort_by")
-    # if sort_by== "low_price":
-    #     posts = Post.query.order_by('monthly_rent').all()
-    # elif sort_by== "new_date":
-    #     posts = Post.query.order_by(desc('created_at')).all()
-    # else:
     dict= ""
+    room_type = {}
     posts = Post.query.all()
-    return render_template('index.html', posts=posts, dict=dict)
+    return render_template('index.html', posts=posts, dict=dict, room_type=room_type)
 
 @bp.route('/', methods=['POST'])
 def post():
+    filters = []
     dropdown_value = request.form.get('dropdown_value')
-    min_rent = int(request.form.get('min_rent'))
-    # min_rent_int = int(min_rent)
-    # //todo 
+    min_rent = request.form.get('min_rent')
+    max_rent = request.form.get('max_rent')
+    is_bill_included = request.form.get('is_bill_included')
+    start_date = request.form.get('start_date')
+    room_type = request.form.getlist('room_type')
+    duration = request.form.get('duration')
+    is_furnished = request.form.get('is_furnished')
+    gender = request.form.get('gender')
+    is_smorkable = request.form.get('is_smorkable')
+    with_landloard = request.form.get('with_landloard')
+
+    if min_rent != '':
+        min_rent = int(min_rent)
+        filters.append(Post.monthly_rent >= min_rent)
+    if min_rent != '':
+        max_rent = int(request.form.get('max_rent'))
+        filters.append(Post.monthly_rent <= max_rent)
+    if ((is_bill_included is not None) and (is_bill_included == 'true')):
+        filters.append(Post.is_bill_included == 'TRUE')
+    if start_date == 'current_date':
+        filters.append(Post.start_date <= datetime.today())
+    elif start_date == 'specified_date':
+        specified_date = request.form.get('specified_date')
+        filters.append(Post.start_date >= specified_date)
+    if len(room_type):
+        filters.append(Post.room_type.in_(room_type))
+    if duration:
+        filters.append(Post.duration <= duration)
+    
+
+
+
     if dropdown_value:
         if dropdown_value == 'created_at':
-            posts = Post.query.filter(Post.monthly_rent > min_rent).order_by(desc(dropdown_value))
+            posts = Post.query.filter(and_(*filters)).order_by(desc(dropdown_value))
         elif dropdown_value == 'monthly_rent':
-            posts = Post.query.filter(Post.monthly_rent > min_rent).order_by(dropdown_value)
+            posts = Post.query.filter(and_(*filters)).order_by(dropdown_value)
     else:
-        posts = Post.query.filter(Post.monthly_rent > min_rent)
+        posts = Post.query.filter(and_(*filters))
+
+    
     dict = request.form
     for key in dict:
         # print (" key" +key)
         print ("form key " + key + " " +dict[key] )
+    
     # print(posts)
     # postArr = []
     # for post in posts:
@@ -96,7 +124,8 @@ def post():
     # db.session.add(new_post)
     # db.session.commit()
     # return redirect('/')
-    return render_template('index.html', posts=posts, dict=dict)
+    print(dict)
+    return render_template('index.html', posts=posts, dict=dict, room_type=room_type)
 
 @bp.route('/create')
 def create():
