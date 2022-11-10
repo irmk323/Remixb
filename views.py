@@ -69,12 +69,12 @@ def post():
     is_furnished = request.form.get('is_furnished')
     gender = request.form.get('gender')
     is_smorkable = request.form.get('is_smorkable')
-    with_landloard = request.form.get('with_landloard')
+    with_landload = request.form.get('with_landload')
 
     if min_rent != '':
         min_rent = int(min_rent)
         filters.append(Post.monthly_rent >= min_rent)
-    if min_rent != '':
+    if max_rent != '':
         max_rent = int(request.form.get('max_rent'))
         filters.append(Post.monthly_rent <= max_rent)
     if ((is_bill_included is not None) and (is_bill_included == 'true')):
@@ -88,6 +88,17 @@ def post():
         filters.append(Post.room_type.in_(room_type))
     if duration:
         filters.append(Post.duration <= duration)
+    if is_furnished:
+        filters.append(Post.is_furnished == is_furnished)
+    if gender:
+        if gender == "female":
+            filters.append(Post.gender == "female")
+        elif gender =="male":
+            filters.append(Post.gender == "male")
+    if is_smorkable:
+        filters.append(Post.is_smorkable == is_smorkable)
+    if with_landload:
+        filters.append(Post.with_landload == with_landload)
     
 
 
