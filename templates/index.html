@@ -8,8 +8,8 @@
         <div class="row justify-content-end m-3">
           <select name="sort_by" id="sort_by" class="form-select" style="width:150px;">
             <option value="" >Default</option>
-            <option value="monthly_rent">Low Price</option>
-            <option value="created_at">New Date</option>
+            <option value="monthly_rent" {{ "selected='selected'" if dict.dropdown_value == "monthly_rent" else "" }} >Low Price</option>
+            <option value="created_at" {{ "selected='selected'" if dict.dropdown_value == "created_at" else "" }} >New Date</option>
           </select>
         </div>
         
@@ -21,21 +21,6 @@
           document.getElementById('dropdown_value').value = sort_by.value;
           document.getElementById('search_form').submit();
           };
-
-          window.onload=function(){
-            let params = (new URL(document.location)).searchParams;
-            let name = params.get('sort_by');
-            var sort_by_elems = document.getElementById('sort_by');
-            checkSelect(sort_by_elems,name);
-          }
-          function checkSelect(obj,val){
-              for(var i=0;i<obj.length;i++){
-                if(obj[i].value==val){
-                obj[i].selected=true;
-                break;
-                }
-              }
-            }
         </script>
       </div>
       <div class="col-lg-2 col-md-12 p-3" style="background-color: #e4f0f1">
@@ -47,24 +32,12 @@
           <div class="input-group input-group-sm mb-2">
             <form action="/" method="POST" enctype="multipart/form-data" id="search_form">
             <input type="hidden" name="dropdown_value" id="dropdown_value" value="" >
-            {% if dict.min_rent != "" %}
-            <input type="text" placeholder="min" name="min_rent"  value="{{dict.min_rent}}" class="form-control mr-2" >
-            {% else %}
-            <input type="text" placeholder="min" name="min_rent" class="form-control mr-2" >
-            {% endif %}
+            <input type="text" placeholder="min" name="min_rent"  value="{{ dict.min_rent if dict.min_rent != '' else '' }}" class="form-control mr-2" >
             <span class="inline-block m-2">~</span>
-            {% if dict.max_rent != "" %}
-            <input type="text" placeholder="min" name="max_rent"  value="{{dict.max_rent}}" class="form-control mr-2" >
-            {% else %}
-            <input type="text" placeholder="max" name="max_rent" class="form-control" >
-            {% endif %}
+            <input type="text" placeholder="max" name="max_rent"  value="{{ dict.max_rent if dict.max_rent != '' else ''}}" class="form-control mr-2" >
           </div>
           <div class="form-check">
-            {% if dict.is_bill_included == 'true' %}
-            <input class="form-check-input" type="checkbox" value="true" id="is_bill_included" name="is_bill_included" checked>
-            {% else %}
-            <input class="form-check-input" type="checkbox" value="true" id="is_bill_included" name="is_bill_included" >
-            {% endif %}
+            <input class="form-check-input" type="checkbox" value="true" id="is_bill_included" name="is_bill_included" {{ "checked='checked'" if dict.is_bill_included == 'true' else "" }}>
             <label class="form-check-label" >
               光熱費込み
             </label>
@@ -99,31 +72,24 @@
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold">部屋タイプ</div>
           <div class="form-check">
-            {% if dict == '' or 'flat' in room_type  %}
-            <input class="form-check-input" type="checkbox" value="flat" name="room_type" id="room_type" checked>
-            {% elif dict.room_type != 'flat' %}
+            {# {% if dict == '' or 'flat' in room_type  %} #}
+            <input class="form-check-input" type="checkbox" value="flat" name="room_type" id="room_type" {{ "checked='checked'" if 'flat' in room_type else "" }}>
+            {# {% elif dict.room_type != 'flat' %}
             <input class="form-check-input" type="checkbox" value="flat" name="room_type" id="room_type" >
-            {% endif %}
+            {% endif %} #}
             <label class="form-check-label">
               フラットルーム
             </label>
           </div>
           <div class="form-check">
-            {% if 'studio' in room_type  %}
-            <input class="form-check-input" type="checkbox" value="studio" name="room_type" id="room_type" checked>
-            {% else %}
-            <input class="form-check-input" type="checkbox" value="studio" name="room_type" id="room_type"  >
-            {% endif %}
+
+            <input class="form-check-input" type="checkbox" value="studio" name="room_type" id="room_type" {{ "checked='checked'" if 'studio' in room_type else "" }}>
             <label class="form-check-label">
               スタジオタイプ
             </label>
           </div>
           <div class="form-check">
-            {% if 'rent' in room_type  %}
-            <input class="form-check-input" type="checkbox" value="rent" name="room_type" id="room_type" checked>
-            {% else %}
-            <input class="form-check-input" type="checkbox" value="rent" name="room_type" id="room_type"  >
-            {% endif %}
+            <input class="form-check-input" type="checkbox" value="rent" name="room_type" id="room_type" {{ "checked='checked'" if 'rent' in room_type else "" }}>
             <label class="form-check-label" for="flexCheckChecked">
               賃貸物件
             </label>
@@ -131,70 +97,70 @@
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold ">滞在期間</div>
-          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected value="1">指定なし</option>
-            <option value="2">1ヶ月以内</option>
-            <option value="3">3ヶ月以内</option>
-            <option value="3">6ヶ月以内</option>
-            <option value="3">1年以内</option>
-            <option value="3">2年以内</option>
-            <option value="3">それ以上</option>
+          <select  name="duration" id="duration" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option {{ "selected='selected'" if dict.duration == "" else "" }} value="">指定なし</option>
+            <option value="1"  {{ "selected='selected'" if dict.duration == '1' else "" }}>1ヶ月以内</option>
+            <option value="3" {{ "selected='selected'" if dict.duration == '3' else "" }}>3ヶ月以内</option>
+            <option value="6" {{ "selected='selected'" if dict.duration == '6' else "" }}>6ヶ月以内</option>
+            <option value="12" {{ "selected='selected'" if dict.duration == '12' else "" }}>1年以内</option>
+            <option value="24" {{ "selected='selected'" if dict.duration == '24' else "" }}>2年以内</option>
+            <option value="25" {{ "selected='selected'" if dict.duration == '25' else "" }}>それ以上</option>
           </select>
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold ">家具</div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <input class="form-check-input" type="radio" name="is_furnished" id="inlineRadio1" value="TRUE" {{ "checked='checked'" if dict.is_furnished == 'TRUE' else "" }}>
             <label class="form-check-label" for="inlineRadio1">あり</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <input class="form-check-input" type="radio" name="is_furnished" id="inlineRadio2" value="FALSE" {{ "checked='checked'" if dict.is_furnished == 'FALSE' else "" }}>
             <label class="form-check-label" for="inlineRadio2">なし</label>
           </div>
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold ">性別</div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <input class="form-check-input" type="radio" name="gender" id="" value="both" {{ "checked='checked'" if dict.gender == 'both' else "" }}>
             <label class="form-check-label" for="inlineRadio1">指定なし</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <input class="form-check-input" type="radio" name="gender" id="" value="female" {{ "checked='checked'" if dict.gender == 'female' else "" }}>
             <label class="form-check-label" for="inlineRadio2">女性希望</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <input class="form-check-input" type="radio" name="gender" id="" value="male" {{ "checked='checked'" if dict.gender == 'male' else "" }}>
             <label class="form-check-label" for="inlineRadio2">男性希望</label>
           </div>
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold ">喫煙</div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <input class="form-check-input" type="radio" name="is_smorkable" id="" value="" {{ "checked='checked'" if dict.is_smorkable == '' else "" }}>
             <label class="form-check-label" for="inlineRadio1">指定なし</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option2">
+            <input class="form-check-input" type="radio" name="is_smorkable" id="" value="TRUE" {{ "checked='checked'" if dict.is_smorkable == 'TRUE' else "" }}>
             <label class="form-check-label" for="inlineRadio1">可能</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option3">
+            <input class="form-check-input" type="radio" name="is_smorkable" id="" value="FALSE" {{ "checked='checked'" if dict.is_smorkable == 'FALSE' else "" }}>
             <label class="form-check-label" for="inlineRadio2">不可</label>
           </div>
         </div>
         <div class="my-3 mx-2">
           <div class="mb-2 fw-bold ">大家</div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <input class="form-check-input" type="radio" name="with_landload" id="" value="" {{ "checked='checked'" if dict.with_landload == '' else "" }}>
             <label class="form-check-label" for="inlineRadio1">指定なし</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">別居</label>
+            <input class="form-check-input" type="radio" name="with_landload" id="" value="TRUE" {{ "checked='checked'" if dict.with_landload == 'TRUE' else "" }}>
+            <label class="form-check-label" for="inlineRadio2">同居</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-            <label class="form-check-label" for="inlineRadio2">同居</label>
+            <input class="form-check-input" type="radio" name="with_landload" id="" value="FALSE" {{ "checked='checked'" if dict.with_landload == 'FALSE' else "" }}>
+            <label class="form-check-label" for="inlineRadio2">別居</label>
           </div>
         </div>
         <div class="mx-auto">
