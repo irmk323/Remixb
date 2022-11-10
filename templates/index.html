@@ -180,7 +180,7 @@
                   <span class="post-created d-flex justify-content-end">投稿日：{{ post.created_at.strftime('%b %d, %Y') }}</span>
                 </div>
                 <a href="/detail/{{ post.id }}">{{post.title}}</a>
-                <p class="card-text">{{post.detail}}</p>
+                <p class="card-text">{{post.detail | truncate(150)}}</p>
               </div>
             </div>
           </div>
