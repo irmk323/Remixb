@@ -1,0 +1,21 @@
+{
+    "studio": "スタジオ",
+    "flat" :"フラット",
+    "is_bill_included":{
+        "True": "含む",
+        "False": "含まない"
+    },
+    "is_furnished":{
+        "True": "あり",
+        "False": "なし"
+    },
+    "gender":{
+        "both": "指定なし",
+        "female": "女性希望",
+        "male": "男性希望"
+    },
+    "is_smorkable":{
+        "True": "可",
+        "False": "不可"
+    }
+}

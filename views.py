@@ -7,6 +7,7 @@ from sqlalchemy import and_, or_, desc
 from models import User, Post, Message
 from flask import Flask, render_template, request, redirect
 from datetime import datetime ,date
+import json
 
 bp = Blueprint('app', __name__,  url_prefix='')
    
@@ -100,9 +101,6 @@ def post():
     if with_landload:
         filters.append(Post.with_landload == with_landload)
     
-
-
-
     if dropdown_value:
         if dropdown_value == 'created_at':
             posts = Post.query.filter(and_(*filters)).order_by(desc(dropdown_value))
@@ -111,7 +109,6 @@ def post():
     else:
         posts = Post.query.filter(and_(*filters))
 
-    
     dict = request.form
     for key in dict:
         # print (" key" +key)
@@ -145,6 +142,15 @@ def create():
 @bp.route('/detail/<int:id>')
 def read(id):
     post = Post.query.get(id)
+    with open('mapping.json') as f:
+        jsn = json.load(f)
+    print(jsn)
+    print( post.is_bill_included)
+    post.room_type = jsn[post.room_type]
+    post.is_bill_included = jsn['is_bill_included'][str(post.is_bill_included)]
+    post.is_furnished = jsn['is_furnished'][str(post.is_furnished)]
+    post.gender = jsn['gender'][post.gender]
+    post.is_smorkable = jsn['is_smorkable'][str(post.is_smorkable)]
 
     return render_template('detail.html', post=post)
 
