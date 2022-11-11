@@ -18,7 +18,9 @@
   box-shadow: 0 2px 3px 0 rgb(0 0 0 / 40%);
   border-radius: 2%;
 }
-
+.create-form{
+  width: 50%;
+}
 body {
     font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
   }
