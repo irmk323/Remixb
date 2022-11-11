@@ -111,32 +111,26 @@ def post():
 
     dict = request.form
     for key in dict:
-        # print (" key" +key)
         print ("form key " + key + " " +dict[key] )
     
-    # print(posts)
-    # postArr = []
-    # for post in posts:
-    #     postArr.append(post.toDict()) 
-    
-    # session['posts'] = jsonify(postArr)
-    # print(session['posts'])
-    
-    # title = request.form.get('title')
-    # detail = request.form.get('detail')
-    # due = request.form.get('due')
-    
-    # due = datetime.strptime(due, '%Y-%m-%d')
-    # new_post = Post(title=title, detail=detail, due=due)
-
-    # db.session.add(new_post)
-    # db.session.commit()
-    # return redirect('/')
-    print(dict)
     return render_template('index.html', posts=posts, dict=dict, room_type=room_type)
 
-@bp.route('/create')
-def create():
+
+@bp.route('/create',methods=['GET'])
+def create_get():
+    return render_template('create.html')
+
+@bp.route('/create',methods=['POST'])
+def create_post():
+    title = request.form.get('title')
+    detail = request.form.get('detail')
+    # start_date = request.form.get('start_date')
+    # start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    new_post = Post(title=title, detail=detail)
+
+    db.session.add(new_post)
+    db.session.commit()
+    # return redirect('/')
     return render_template('create.html')
 
 @bp.route('/detail/<int:id>')
