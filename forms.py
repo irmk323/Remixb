@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Email
+from wtforms import EmailField, PasswordField, BooleanField, SubmitField,DateField,SelectField
+from wtforms.validators import DataRequired, Email,Regexp
 from wtforms import (EmailField, PasswordField, BooleanField,
    SubmitField, StringField ,TextAreaField)
 
@@ -22,3 +22,18 @@ class MessageForm(FlaskForm):
 
     message = TextAreaField('Message:', validators=[DataRequired()])
     submit = SubmitField('Submit')
+   
+class NewpostForm(FlaskForm):
+   title = StringField('タイトル', validators=[DataRequired()])
+   detail = TextAreaField('詳細', validators=[DataRequired()])
+   monthly_rent = StringField('家賃', validators=[Regexp("^[a-zA-Z0-9]+$")])
+   is_bill_included = BooleanField('光熱費込み')
+   deposit = StringField('デポジット', validators=[Regexp("^[a-zA-Z0-9]+$")])
+   start_date = DateField('入居可能日')
+   room_type = SelectField('部屋タイプ', choices=[('flat', 'フラットルーム'), ('studio', 'スタジオ'), ('rent', '賃貸物件')])
+   duration = SelectField('滞在期間', choices=[('', '指定なし'), ('1', '1ヶ月以内'), ('3', '3ヶ月以内'), ('6', '6ヶ月以内'),('12', '1年以内'),('24', '3ヶ月以内'),('25', 'それ以上')])
+   is_furnished = SelectField('家具', choices=[('TRUE', '有り'), ('FALSE', '無し')])
+   gender = SelectField('性別', choices=[('both', '指定無し'), ('female', '女性'), ('male', '男性')])
+   is_smorkable = SelectField('喫煙', choices=[('TRUE', '可'), ('FALSE', '不可')])
+   with_landload = SelectField('大家', choices=[('TRUE', '同居'), ('FALSE', '別居')])
+   submit = SubmitField('投稿する')
