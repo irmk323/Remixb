@@ -21,6 +21,9 @@
 .create-form{
   width: 50%;
 }
+.create-text-area{
+  height: 150px;
+}
 body {
     font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
   }

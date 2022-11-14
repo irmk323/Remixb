@@ -5,85 +5,60 @@
     <div class="container">
         <div class="p-5">
             <h3>新規物件投稿</h3>
-            <!-- <p></p> -->
             <form  action="/create" method='POST'>
+                {{ form.hidden_tag() }}
                 <div class="form-group pb-3">
-                    <label for="title">タイトル : </label>
-                    <input type="text" class="form-control create-form" name="title" aria-describedby="title-help">
+                    {{ form.title.label() }}
+                    {{ form.title(class="form-control create-form") }}
                     <small id="title-help" class="form-text text-muted">30文字以内で入力してください。</small>
                 </div>
                 <div class="form-group pb-3">
-                    <label for="detail">詳細 : </label>
-                    <textarea type="textarea" class="form-control create-form" style="height:150px;"name="detail"></textarea>
+                    {{ form.detail.label() }}
+                    {{ form.detail(class="form-control create-form create-text-area") }}
                     <small id="title-help" class="form-text text-muted">詳細を記入してください</small>
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due" >家賃</label>
-                    <input type="text" name="due" class="form-control create-form" required>
+                    {{ form.monthly_rent.label() }}
+                    {{ form.monthly_rent(class="form-control create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due" >光熱費込み</label>
-                    <input type="checkbox" name="due" required>
+                    {{ form.is_bill_included.label() }}
+                    {{ form.is_bill_included() }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due" >デポジット</label>
-                    <input type="text" name="due"  class="form-control create-form" required>
+                    {{ form.deposit.label() }}
+                    {{ form.deposit(class="form-control create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">入居可能日</label>
-                    <input type="date" name="due" class="form-control create-form" >
+                    {{ form.start_date.label() }}
+                    {{ form.start_date(class="form-control create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">部屋タイプ</label>
-                    <select  name="duration" id="duration" class="form-select form-select-m create-form" aria-label=".form-select-m example">
-                        <option value="">フラットルーム</option>
-                        <option value="1">スタジオタイプ</option>
-                        <option value="3">賃貸物件</option>
-                      </select>
+                    {{ form.room_type.label() }}
+                    {{ form.room_type(class="form-select form-select-m create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">滞在期間</label>
-                    <select  name="duration" id="duration" class="form-select form-select-m create-form" aria-label=".form-select-m example">
-                        <option value="">指定なし</option>
-                        <option value="1" >1ヶ月以内</option>
-                        <option value="3" >3ヶ月以内</option>
-                        <option value="6" >6ヶ月以内</option>
-                        <option value="12" >1年以内</option>
-                        <option value="24" >2年以内</option>
-                        <option value="25" >それ以上</option>
-                      </select>
+                    {{ form.duration.label() }}
+                    {{ form.duration(class="form-select form-select-m create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">家具</label>
-                    <select  name="duration" id="duration" class="form-select form-select-m create-form" aria-label=".form-select-m example">
-                        <option value="">あり</option>
-                        <option value="1">なし</option>
-                      </select>
+                    {{ form.is_furnished.label() }}
+                    {{ form.is_furnished(class="form-select form-select-m create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">性別</label>
-                    <select  name="duration" id="duration" class="form-select form-select-m create-form" aria-label=".form-select-m example">
-                        <option value="">指定なし</option>
-                        <option value="1">女性希望</option>
-                        <option value="3">男性希望</option>
-                      </select>
+                    {{ form.gender.label() }}
+                    {{ form.gender(class="form-select form-select-m create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">喫煙</label>
-                    <select  name="duration" id="duration" class="form-select form-select-m create-form" aria-label=".form-select-m example">
-                        <option value="1">可能</option>
-                        <option value="3">不可</option>
-                      </select>
+                    {{ form.is_smorkable.label() }}
+                    {{ form.is_smorkable(class="form-select form-select-m create-form") }}
                 </div>
                 <div class="form-group pb-3">
-                    <label for="due">大家</label>
-                    <select  name="duration" id="duration" class="form-select form-select-m create-form" aria-label=".form-select-m example">
-                        <option value="1">同居</option>
-                        <option value="3">別居</option>
-                      </select>
+                    {{ form.with_landload.label() }}
+                    {{ form.with_landload(class="form-select form-select-m create-form") }}
                 </div>
                 <a class="btn btn-outline-primary" href="/" role="button">Return</a>
-                <button type="submit" class="btn btn-primary">Create</button>
+                {{ form.submit(class="btn btn-primary") }}
             </form>
         </div>
     </div>

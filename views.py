@@ -1,7 +1,7 @@
 from flask import (Blueprint, render_template, redirect,
    url_for, flash, session)
 from flask_login import current_user, login_user, logout_user, login_required
-from forms import LoginForm, MessageForm, RegisterForm
+from forms import LoginForm, MessageForm, NewpostForm, RegisterForm
 from app import db
 from sqlalchemy import and_, or_, desc
 from models import User, Post, Message
@@ -118,20 +118,21 @@ def post():
 
 @bp.route('/create',methods=['GET'])
 def create_get():
-    return render_template('create.html')
+    form = NewpostForm()
+    return render_template('create.html', form=form)
 
 @bp.route('/create',methods=['POST'])
 def create_post():
     title = request.form.get('title')
     detail = request.form.get('detail')
-    # start_date = request.form.get('start_date')
-    # start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    start_date = request.form.get('start_date')
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
     new_post = Post(title=title, detail=detail)
 
     db.session.add(new_post)
     db.session.commit()
     # return redirect('/')
-    return render_template('create.html')
+    return redirect('/')
 
 @bp.route('/detail/<int:id>')
 def read(id):
