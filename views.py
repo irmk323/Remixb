@@ -122,17 +122,22 @@ def create_get():
     return render_template('create.html', form=form)
 
 @bp.route('/create',methods=['POST'])
-def create_post():
-    title = request.form.get('title')
-    detail = request.form.get('detail')
-    start_date = request.form.get('start_date')
-    start_date = datetime.strptime(start_date, '%Y-%m-%d')
-    new_post = Post(title=title, detail=detail)
-
-    db.session.add(new_post)
-    db.session.commit()
+def create():   
+    form = NewpostForm()
+    # if request.method =="GET":
+        # return render_template('create.html', form=form)
+    if form.validate_on_submit():
+       post = Post(
+        title = request.form.get('title'),
+        detail = request.form.get('detail'),
+        start_date = datetime.strptime(request.form.get('start_date'), '%Y-%m-%d')
+       )
+       db.session.add(post)
+       db.session.commit()
+       flash('投稿が追加されました')
+       return redirect(url_for('app.post'))
     # return redirect('/')
-    return redirect('/')
+    return render_template('create.html', form=form)
 
 @bp.route('/detail/<int:id>')
 def read(id):

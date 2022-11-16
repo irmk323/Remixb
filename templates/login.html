@@ -35,15 +35,11 @@
       
         <div class="form-floating">
           {{ form.hidden_tag() }}
-          <!--<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">-->
           {{ form.email(class="form-control", id="floatingInput", placeholder="name@example.com") }}
-          <!--<label for="floatingInput">Email address</label>-->
           {{ form.email.label(for="floatingInput") }}
         </div>
         <div class="form-floating">
-          <!--<input type="password" class="form-control" id="floatingPassword" placeholder="Password">-->
           {{ form.password(class="form-control", id="floatingPassword", placeholder="Password") }}
-          <!--<label for="floatingPassword">Password</label>-->
           {{ form.password.label(for="floatingPassword") }}
         </div>
       
