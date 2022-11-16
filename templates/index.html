@@ -177,7 +177,7 @@
               <img src="../static/img/pexels-pixabay-259962.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <div class="justify-content-end">
-                  <span class="post-created d-flex justify-content-end">投稿日：{{ post.created_at.strftime('%b %d, %Y') }}</span>
+                  <span class="post-created d-flex justify-content-end">投稿日：{{ post.created_at.strftime('%b %d, %Y') if post.created_at else "" }}</span>
                 </div>
                 <a href="/detail/{{ post.id }}">{{post.title}}</a>
                 <p class="card-text">{{post.detail | truncate(150)}}</p>
