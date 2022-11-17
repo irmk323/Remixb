@@ -130,13 +130,22 @@ def create():
        post = Post(
         title = request.form.get('title'),
         detail = request.form.get('detail'),
+        monthly_rent = request.form.get('monthly_rent'),
+        is_bill_included = request.form.get('is_bill_included'),
+        deposit = request.form.get('deposit'),
+        room_type = request.form.get('room_type'),
+        duration = request.form.get('duration'),
+        is_furnished = request.form.get('is_furnished'),
+        gender = request.form.get('gender'),
+        # is_smorkable = request.form.get('is_smorkable'),
+        is_smorkable = True,
+        with_landload = request.form.get('with_landload'),
         start_date = datetime.strptime(request.form.get('start_date'), '%Y-%m-%d')
        )
        db.session.add(post)
        db.session.commit()
        flash('投稿が追加されました')
        return redirect(url_for('app.post'))
-    # return redirect('/')
     return render_template('create.html', form=form)
 
 @bp.route('/detail/<int:id>')
