@@ -6,6 +6,15 @@
         <div class="p-5">
             <h3>新規物件投稿</h3>
             <form action="/create" method='POST'>
+                <p>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          {{ message }}
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    </p>
                 <div>{{ form.title.label() }}</div>
                 {{ form.hidden_tag() }}
                 <div class="form-group pb-3">
