@@ -4,7 +4,7 @@
     "is_bill_included":{
         "True": "含む",
         "False": "含まない"
-    },,
+    },
     "is_furnished":{
         "True": "あり",
         "False": "なし"

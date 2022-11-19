@@ -126,25 +126,26 @@ def create():
     form = NewpostForm()
     # if request.method =="GET":
         # return render_template('create.html', form=form)
+    print(form)
+    print(form.validate_on_submit())
+    flash(form.errors)
     if form.validate_on_submit():
        post = Post(
         title = request.form.get('title'),
         detail = request.form.get('detail'),
         monthly_rent = request.form.get('monthly_rent'),
-        is_bill_included = request.form.get('is_bill_included'),
+        is_bill_included = True if request.form.get('is_bill_included') == 'True' else False,
         deposit = request.form.get('deposit'),
         room_type = request.form.get('room_type'),
         duration = request.form.get('duration'),
-        is_furnished = request.form.get('is_furnished'),
+        is_furnished = True if request.form.get('is_furnished') =='True' else False,
         gender = request.form.get('gender'),
-        # is_smorkable = request.form.get('is_smorkable'),
-        is_smorkable = True,
-        with_landload = request.form.get('with_landload'),
+        is_smorkable = True if request.form.get('is_smorkable') == 'True' else False,
+        with_landload =   True if request.form.get('with_landload')  == 'True' else False,
         start_date = datetime.strptime(request.form.get('start_date'), '%Y-%m-%d')
        )
        db.session.add(post)
        db.session.commit()
-       flash('投稿が追加されました')
        return redirect(url_for('app.post'))
     return render_template('create.html', form=form)
 
