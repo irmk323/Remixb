@@ -130,6 +130,7 @@ def create():
     print(form.validate_on_submit())
     flash(form.errors)
     if form.validate_on_submit():
+       
        post = Post(
         title = request.form.get('title'),
         detail = request.form.get('detail'),
@@ -142,7 +143,8 @@ def create():
         gender = request.form.get('gender'),
         is_smorkable = True if request.form.get('is_smorkable') == 'True' else False,
         with_landload =   True if request.form.get('with_landload')  == 'True' else False,
-        start_date = datetime.strptime(request.form.get('start_date'), '%Y-%m-%d')
+        start_date = datetime.strptime(request.form.get('start_date'), '%Y-%m-%d'),
+        created_at = datetime.now()
        )
        db.session.add(post)
        db.session.commit()

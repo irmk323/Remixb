@@ -5,8 +5,8 @@
     <div class="container">
         <div class="p-5">
             <h3>新規物件投稿</h3>
-            <form action="/create" method='POST'>
-                <p>
+            <form action="/create" method='POST' novalidate="novalidate">
+                <!-- <p>
                     {% with messages = get_flashed_messages() %}
                       {% if messages %}
                         {% for message in messages %}
@@ -14,19 +14,23 @@
                         {% endfor %}
                       {% endif %}
                     {% endwith %}
-                    </p>
-                <div>{{ form.title.label() }}</div>
+                    </p> -->
                 {{ form.hidden_tag() }}
+                <div>{{ form.title.label() }}</div>
                 <div class="form-group pb-3">
                 {% for error in form.title.errors %}
                     <span style="color: red;">{{ error }}</span>
                 {% endfor %}
                     {{ form.title(class="form-control create-form") }}
-                    <small id="title-help" class="form-text text-muted">30文字以内で入力してください。</small>
+                    <small id="title-help" class="form-text text-muted">5文字以上、30文字以内で入力してください。</small>
                 </div>
                 <div class="form-group pb-3">
-                    {{ form.monthly_rent.label() }}
+                    {{ form.monthly_rent.label() }}(£)
+                    {% for error in form.monthly_rent.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                    {% endfor %}
                     {{ form.monthly_rent(class="form-control create-form") }}
+                    <small id="title-help" class="form-text text-muted">半角英数字で入力してください。</small>
                 </div>
                 <div class="form-group pb-3">
                     {{ form.is_bill_included.label() }}
@@ -34,11 +38,19 @@
                 </div>
                 <div class="form-group pb-3">
                     {{ form.deposit.label() }}
+                    {% for error in form.deposit.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                    {% endfor %}
                     {{ form.deposit(class="form-control create-form") }}
+                    <small id="title-help" class="form-text text-muted">デポジットなしの場合は0と入力してください。半角英数字で入力してください。</small>
                 </div>
                 <div class="form-group pb-3">
                     {{ form.start_date.label() }}
+                    {% for error in form.start_date.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                    {% endfor %}
                     {{ form.start_date(class="form-control create-form") }}
+                    <small id="title-help" class="form-text text-muted">入居開始可能日を入力してください。</small>
                 </div>
                 <div class="form-group pb-3">
                     {{ form.room_type.label() }}
@@ -66,6 +78,9 @@
                 </div>
                 <div class="form-group pb-3">
                     {{ form.detail.label() }}
+                    {% for error in form.detail.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                    {% endfor %}
                     {{ form.detail(class="form-control create-form create-text-area") }}
                     <small id="title-help" class="form-text text-muted">詳細を記入してください</small>
                 </div>
