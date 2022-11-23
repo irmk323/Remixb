@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField, PasswordField, BooleanField, SubmitField,DateField,SelectField,ValidationError
 from wtforms.validators import DataRequired, Email,Regexp,InputRequired
-from wtforms import (EmailField, PasswordField, BooleanField,
+from wtforms import (EmailField, PasswordField, BooleanField,MultipleFileField,
    SubmitField, StringField ,TextAreaField)
 
 message_required="この項目は必須項目です。"
@@ -39,6 +39,7 @@ class NewpostForm(FlaskForm):
    gender = SelectField('性別', choices=[('both', '指定無し'), ('female', '女性'), ('male', '男性')])
    is_smorkable = SelectField('喫煙', choices=[('True', '可'), ('False', '不可')],coerce=lambda x: True if x == 'True' else False)
    with_landload = SelectField('大家', choices=[('False', '別居'),('True', '同居')], validators=[InputRequired()],coerce=lambda x: True if x == 'True' else False)
+   picture = MultipleFileField('Update Profile Pic')
    submit = SubmitField('投稿する')
 
    def validate_title(self, title):

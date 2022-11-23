@@ -25,7 +25,7 @@ class Post(db.Model):
    postcode = db.Column(db.String(30))
    area = db.Column(db.String(30))
    closest_station = db.Column(db.String(30))
-   picture_path = db.Column(db.String(100))
+   pictures_path = db.Column(db.JSON)
    created_at = db.Column(db.DateTime)
    def toDict(self):
       return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }

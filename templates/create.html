@@ -5,7 +5,7 @@
     <div class="container">
         <div class="p-5">
             <h3>新規物件投稿</h3>
-            <form action="/create" method='POST' novalidate="novalidate">
+            <form action="/create" method='POST' novalidate="novalidate" enctype="multipart/form-data">
                 <!-- <p>
                     {% with messages = get_flashed_messages() %}
                       {% if messages %}
@@ -83,6 +83,14 @@
                     {% endfor %}
                     {{ form.detail(class="form-control create-form create-text-area") }}
                     <small id="title-help" class="form-text text-muted">詳細を記入してください</small>
+                </div>
+                <div class="form-group pb-3">
+                    {{ form.picture.label() }}
+                    {% for error in form.picture.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                    {% endfor %}
+                    {{ form.picture(class="") }}
+                    <small id="title-help" class="form-text text-muted">画像を登録してください</small>
                 </div>
                 {{ form.submit(class="btn btn-primary") }}
             </form>   
