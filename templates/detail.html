@@ -12,7 +12,37 @@
               <div class="p-2  ms-auto aligin-middle">投稿日:{{ post.created_at }}</div>
             </div>
             <div class="mx-auto" style="width:70%; ">
-              <img src="/{{post.picture_path}}" class="card-img-top" alt="...">
+              <div id="carouselExampleIndicators_{{post.id}}" class="carousel slide" data-bs-ride="carousel"
+                data-bs-interval="false">
+                <div class="carousel-indicators">
+                  {% if post.pictures_path %}
+                  {% for key, picture_path in post.pictures_path.items() %}
+                  <button type="button" data-bs-target="#carouselExampleIndicators_{{post.id}}"
+                    data-bs-slide-to="{{key}}" class="{{ 'active' if key == '0' else '' }}" aria-current="true"
+                    aria-label="Slide {{key}}"></button>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="carousel-inner">
+                  {% if post.pictures_path %}
+                  {% for key, picture_path in post.pictures_path.items() %}
+                  <div class="carousel-item {{ 'active' if key == '0' else '' }}">
+                    <img src="../{{ picture_path }}" class="d-block w-100" alt="...">
+                  </div>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+                <button class="carousel-control-prev" type="button"
+                  data-bs-target="#carouselExampleIndicators_{{post.id}}" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button"
+                  data-bs-target="#carouselExampleIndicators_{{post.id}}" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
             </div>
             <div class="mt-3"> 
               <p>{{ post.detail }}</p>

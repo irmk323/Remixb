@@ -48,3 +48,8 @@ body {
     color: gray;
     font-size: 10px;
   }
+.carousel-indicators [data-bs-target]{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
