@@ -209,7 +209,7 @@
                   {% if post.pictures_path %}
                   {% for key, picture_path in post.pictures_path.items() %}
                   <div class="carousel-item {{ 'active' if key == '0' else '' }}">
-                    <img src="../{{ picture_path }}" class="d-block w-100" alt="...">
+                    <img src="../{{ picture_path }}" class="d-block w-100 object-fit-img" alt="...">
                   </div>
                   {% endfor %}
                   {% endif %}

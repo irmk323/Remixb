@@ -53,3 +53,9 @@ body {
   height: 5px;
   border-radius: 50%;
 }
+
+.object-fit-img {
+  height: 250px;
+  object-fit: cover;
+  font-family: 'object-fit: contain;'
+}
