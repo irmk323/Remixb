@@ -59,3 +59,8 @@ body {
   object-fit: cover;
   font-family: 'object-fit: contain;'
 }
+#map {
+  height: 400px;
+  width: 70%;
+  margin: auto;
+}
