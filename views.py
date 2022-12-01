@@ -10,6 +10,10 @@ from datetime import datetime, date
 import json
 from werkzeug.utils import secure_filename
 
+import requests
+import pprint
+
+
 UPLOAD_DIR = "static/img/"
 bp = Blueprint("app", __name__, url_prefix="")
 
@@ -34,7 +38,18 @@ def login():
 
 @bp.route("/test")
 def test():
-    return render_template("test.html")
+    url = 'https://findthatpostcode.uk/postcodes/W128NR.json'
+
+    # params = {'zipcode':'2330008'}
+
+    res = requests.get(url)
+
+    data = json.loads(res.text)
+    lat = data['data']['attributes']['location']['lat']
+    lon = data['data']['attributes']['location']['lon']
+    pprint.pprint(lat)
+    pprint.pprint(lon)
+    return render_template("test.html", lat=lat, lon=lon)
 
 
 @bp.route("/logout")
@@ -190,7 +205,14 @@ def read(id):
     post.gender = jsn["gender"][post.gender]
     post.is_smorkable = jsn["is_smorkable"][str(post.is_smorkable)]
 
-    return render_template("detail.html", post=post)
+    url = 'https://findthatpostcode.uk/postcodes/' + post.postcode + '.json'
+    res = requests.get(url)
+    data = json.loads(res.text)
+    lat = data['data']['attributes']['location']['lat']
+    lon = data['data']['attributes']['location']['lon']
+    pprint.pprint(lat)
+    pprint.pprint(lon)
+    return render_template("detail.html", post=post,lat=lat, lon=lon)
 
 
 @bp.route("/delete/<int:id>")

@@ -93,25 +93,18 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-12 col-xs-12">
-                <div >
-                  <div>
-                    <div class="map" style="width:100%">
-                      <!-- Google Mapの共有タグを埋め込む -->
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828030384825!2d139.76493075169924!3d35.68123618009717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1618711259693!5m2!1sja!2sjp"
-                        style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="map" style="padding-top: 0%;">
+                        <div id="map" style="width: 100%;"></div>
                     </div>
-                  </div>
-                </div>
-                <div class="p-3" style="">
-                  <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn base-button btn-lg" type="button">問い合わせる</button>
-                  </div>
-                </div>
               </div>
               <div class="pt-2">
                 <a class="btn btn-outline-success" href="/" role="button">Return</a>
                 <a class="btn btn-success" href="/update/{{ post.id }}" role="button">Update</a>
+              </div>
+              <div class="p-3" style="display: block;">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <button class="btn base-button btn-lg" type="button">問い合わせる</button>
+                </div>
               </div>
             </div>
           </div>
@@ -122,4 +115,14 @@
       </div>
     </div>
   </div>
+
+  <script>
+    var map = L.map('map').setView([{{lat}}, {{lon}}], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
+    var marker = L.marker([{{lat}}, {{lon}}]).addTo(map);
+    marker.bindPopup("{{lat}}, {{lon}}").openPopup();
+
+</script>
   {% endblock %}
