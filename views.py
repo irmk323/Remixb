@@ -38,18 +38,19 @@ def login():
 
 @bp.route("/test")
 def test():
-    url = 'https://findthatpostcode.uk/postcodes/W128NR.json'
-
-    # params = {'zipcode':'2330008'}
-
-    res = requests.get(url)
-
-    data = json.loads(res.text)
-    lat = data['data']['attributes']['location']['lat']
-    lon = data['data']['attributes']['location']['lon']
-    pprint.pprint(lat)
-    pprint.pprint(lon)
-    return render_template("test.html", lat=lat, lon=lon)
+    rooms = {}
+    # {"1": [postcode, lat, lon]}
+    posts = Post.query.all()
+    for post in posts:
+        url = 'https://findthatpostcode.uk/postcodes/' + post.postcode + '.json' 
+        res = requests.get(url)
+        data = json.loads(res.text)
+        lat = data['data']['attributes']['location']['lat']
+        lon = data['data']['attributes']['location']['lon']        
+        rooms[post.id] = [post.postcode,lat,lon]
+    pprint.pprint(rooms)
+    # pprint.pprint(lon)
+    return render_template("test.html", rooms=rooms)
 
 
 @bp.route("/logout")
